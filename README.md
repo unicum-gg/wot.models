@@ -1,38 +1,33 @@
-# @unicum.gg/wot.models
+# wot.models
 
-Vehicle **geometry** extracted from the World of Tanks / Mir Tankov client: the armor
-plates a shell has to get through, and the model a player actually sees. This is the piece
-every other mirror leaves out. `wot-src` and its kin publish a vehicle's scripts, its XML
-and its armor *values*, but not its meshes, because those are binary. That gap is what
-stops a site from drawing a tank, and this repository fills it.
+**World of Tanks vehicle geometry**, the armor a shell has to get through and the
+model a player sees, one branch per client build. Extracted straight from the
+update CDN by [`unicum-gg/wot.build`](https://github.com/unicum-gg/wot.build),
+with no game client installed. Used by [unicum.gg](https://unicum.gg) to draw a
+tank and to show where its plates are.
 
-It is meant as a shared **community resource**, in the same spirit as `wot-src`: other WoT
-and Mir Tankov tool developers need this exact data, so it covers every publisher rather
-than only what [unicum.gg](https://unicum.gg) happens to use. Reuse and contributions
-welcome.
-
-The extraction pipeline lives in [`wot.build`](https://github.com/unicum-gg/wot.build)
-alongside the generators for the other mirrors, since they share the hard part: resolving a
-build through Wargaming's update service and range-downloading single packages out of a
-multi-gigabyte archive, with no game client installed anywhere.
+This is the piece the other mirrors leave out. `wot.src` and its kin publish a
+vehicle's scripts, its XML and its armor *values*, but not its meshes, because
+those are binary, and that gap is what stops a site from drawing a tank. It is
+meant as a shared community resource in the same spirit, so it covers every
+publisher rather than only what unicum.gg happens to use. Reuse and
+contributions welcome.
 
 ## Branches
 
-One branch per **publisher**, tracked per patch. The client build a branch was made from is
-recorded in `.version_name`.
+| Branch | Client | Update service | guid |
+| --- | --- | --- | --- |
+| [`WG`](../../tree/WG) | Wargaming release | `wgus-woteu.wargaming.net` | `WOT.EU.PRODUCTION` |
+| [`WG_CT`](../../tree/WG_CT) | Wargaming Common Test | `wgus-wotct.wargaming.net` | `WOT.CT.PRODUCTION` |
+| [`Lesta`](../../tree/Lesta) | Lesta release (Мир танков) | `lstus-ru.lesta.ru` | `MT.RU.PRODUCTION` |
+| [`Lesta_PT`](../../tree/Lesta_PT) | Lesta public test | `lstus-ru.lesta.ru` | `MT.PT.PRODUCTION` |
 
-| Branch | Client |
-| --- | --- |
-| `WG` | World of Tanks (Wargaming.net, release). One copy serves EU, NA, ASIA and CN. |
-| `WG_CT` | World of Tanks, Common Test: where a vehicle appears weeks before release. |
-| `Lesta` | Mir Tankov (Lesta, release). |
-| `Lesta_PT` | Mir Tankov, Public Test. |
+One copy of the release branch serves EU, NA, ASIA and CN: the geometry is the
+same everywhere, unlike the sources, which differ per region. A vehicle appears
+on the Common Test branch weeks before it is released, which is what that one is
+for.
 
-We branch by publisher, not by region. Vehicle geometry is an asset and is identical across
-every region of a given publisher, so a per-region split would only produce duplicates. The
-one real divergence is WG against Lesta, whose clients forked in 2022.
-
-## Layout
+## What is published
 
 ```
 vehicles/<nation>/<code>/
@@ -117,8 +112,4 @@ channel:
 
 ## Notice
 
-Game assets are the property of Wargaming.net, Lesta Games and their respective owners.
-This is a fan-made, **non-commercial** derivative published under Wargaming's
-[Player Content Policy](https://legal.wargaming.net/en/user-documents/content-policies/player-content-policy/view).
-Not affiliated with, endorsed by, or sponsored by Wargaming or Lesta. Takedown requests are
-honoured.
+Assets provided in the repository are the property of their sole owners.
